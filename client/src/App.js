@@ -1,13 +1,18 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Register from './pages/Register';
+import Login from './pages/Login';
 
 function App() {
   return (
-    <div className="container">
-      <div className="row">
-        <h1>Welcome to subscription app</h1>
-        <p className="lead">Using react node stripe and mongodb</p>
-      </div>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/login" component={Login} />
+      </Switch>
+    </Router>
   );
 }
 
