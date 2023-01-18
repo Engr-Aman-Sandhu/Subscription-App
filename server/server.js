@@ -9,29 +9,29 @@ require('dotenv').config();
 const app = express();
 
 // db
-// mongoose
-//   .connect(process.env.DATABASE)
-//   .then(() => console.log('DB Connected'))
-//   .catch((err) => console.log('DB Connection Error ', err));
+mongoose
+  .connect(process.env.DATABASE1)
+  .then(() => console.log('DB Connected'))
+  .catch((err) => console.log('DB Connection Error ', err));
 
-const database = (module.exports = () => {
-  const connectionParams = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  };
-  try {
-    mongoose.connect(
-      'mongodb+srv://subscription_admin:adminadmin@subscriptionapp.wjarlvt.mongodb.net/Subscription-App?retryWrites=true&w=majority',
-      connectionParams
-    );
-    console.log('Database connected succesfully');
-  } catch (error) {
-    console.log(error);
-    console.log('Database connection failed');
-  }
-});
+// const database = (module.exports = () => {
+//   const connectionParams = {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   };
+//   try {
+//     mongoose.connect(
+//       'mongodb+srv://subscription_admin:adminadmin@subscriptionapp.wjarlvt.mongodb.net/Subscription-App?retryWrites=true&w=majority',
+//       connectionParams
+//     );
+//     console.log('Database connected succesfully');
+//   } catch (error) {
+//     console.log(error);
+//     console.log('Database connection failed');
+//   }
+// });
 
-database();
+// database();
 
 // middlewares
 app.use(express.json({ limit: '5mb' }));
