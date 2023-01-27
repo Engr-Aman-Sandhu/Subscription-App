@@ -27,9 +27,10 @@ const Register = ({ history }) => {
         setEmail('');
         setPassword('');
         toast.success(
-          `Hey ${data.user.name}. You are part of tema now. Congrats!`
+          `Hey ${data.user.name}. You are part of team now. Congrats!`
         );
-        history.push('/login');
+        localStorage.setItem('auth', JSON.stringify(data));
+        history.push('/');
       }
     } catch (err) {
       console.log(err);

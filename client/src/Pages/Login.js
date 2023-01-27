@@ -23,6 +23,7 @@ const Login = ({ history }) => {
       } else {
         setEmail('');
         setPassword('');
+        localStorage.setItem('auth', JSON.stringify(data));
         history.push('/');
       }
     } catch (err) {
