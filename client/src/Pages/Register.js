@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { UserContext } from '../context';
 
 const Register = ({ history }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  // context
+  const [state, setState] = useContext(UserContext);
 
   const handleClick = async (e) => {
     // console.log(name, email, password);
@@ -29,6 +32,7 @@ const Register = ({ history }) => {
         toast.success(
           `Hey ${data.user.name}. You are part of team now. Congrats!`
         );
+        setState(data);
         localStorage.setItem('auth', JSON.stringify(data));
         history.push('/');
       }
