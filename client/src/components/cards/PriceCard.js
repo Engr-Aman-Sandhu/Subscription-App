@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PriceCard = () => {
+const PriceCard = ({ price }) => {
   return (
     <div className="col">
       <div className="card mb-4 rounded-3 shadow-sm">
@@ -18,6 +18,8 @@ const PriceCard = () => {
             <li>Email support</li>
             <li>Help center access</li>
           </ul>
+
+          <pre>{JSON.stringify(price, null, 4)}</pre>
 
           <button className="w-100 btn btn-lg btn-outline-danger">
             Sign up
