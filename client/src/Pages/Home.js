@@ -1,8 +1,10 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PriceCard from '../components/cards/PriceCard';
+import { UserContext } from '../context';
 
-const Home = () => {
+const Home = ({ history }) => {
+  const [state, setState] = useContext(UserContext);
   const [prices, setPrices] = useState([]);
 
   useEffect(() => {
@@ -15,9 +17,17 @@ const Home = () => {
     setPrices(data);
   };
 
-  const handleClick = async (e) => {
+  const handleClick = async (e, price) => {
     e.preventDefault();
-    console.log('plan clicked');
+    // console.log("plan clicked", price.id);
+    if (state && state.token) {
+      const { data } = await axios.post('/create-subscription', {
+        priceId: price.id,
+      });
+      window.open(data);
+    } else {
+      history.push('/register');
+    }
   };
 
   return (
@@ -32,7 +42,11 @@ const Home = () => {
       <div className="row pt-5 mb-3 text-center">
         {prices &&
           prices.map((price) => (
-            <PriceCard key={price.id} price={price} handleClick={handleClick} />
+            <PriceCard
+              key={price.id}
+              price={price}
+              handleSubscription={handleClick}
+            />
           ))}
       </div>
     </div>
