@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import AuthRoute from './components/routes/AuthRoute';
 import Nav from './components/Nav';
 import Home from './pages/Home';
 import Register from './pages/Register';
@@ -22,8 +23,8 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/stripe/success" component={StripeSuccess} />
-        <Route exact path="/stripe/cancel" component={StripeCancel} />
+        <AuthRoute exact path="/stripe/success" component={StripeSuccess} />
+        <AuthRoute exact path="/stripe/cancel" component={StripeCancel} />
       </Switch>
     </Router>
   );
