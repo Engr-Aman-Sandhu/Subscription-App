@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
 import { UserContext } from '../../context';
 
 const PriceCard = ({ price, handleSubscription }) => {
@@ -55,14 +54,14 @@ const PriceCard = ({ price, handleSubscription }) => {
 
           {/* <pre>{JSON.stringify(price, null, 4)}</pre> */}
 
-          <Link to="/register">
-            <button
-              // onClick={() => handleSubscription(price)}
-              className={`w-100 btn btn-lg ${buttonStyle()}`}
-            >
-              {buttonText()}
-            </button>
-          </Link>
+          {/* <Link to="/register"> */}
+          <button
+            onClick={(e) => handleSubscription(e, price)}
+            className={`w-100 btn btn-lg ${buttonStyle()}`}
+          >
+            {buttonText()}
+          </button>
+          {/* </Link> */}
         </div>
       </div>
     </div>
