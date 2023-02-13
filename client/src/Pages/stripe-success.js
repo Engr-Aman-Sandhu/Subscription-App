@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { SyncOutlined } from '@ant-design/icons';
+import { UserContext } from '../context';
 
 const StripeSuccess = ({ history }) => {
+  const [state, setState] = useContext(UserContext);
+
   useEffect(() => {
     const getSubscriptionStatus = async () => {
       const { data } = await axios.get('/subscription-status');
@@ -10,7 +13,15 @@ const StripeSuccess = ({ history }) => {
       if (data && data.length === 0) {
         history.push('/');
       } else {
-        history.push('/account');
+        // update user in local storage
+        const auth = JSON.parse(localStorage.getItem('auth'));
+        auth.user = data;
+        localStorage.setItem('auth', JSON.stringify(auth));
+        // update user in context
+        setState(auth);
+        setTimeout(() => {
+          history.push('/account');
+        }, 1000);
       }
     };
 
