@@ -1,6 +1,5 @@
 import React, { Fragment, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { isAuth } from '../utils/functions';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from '../context';
 
@@ -25,13 +24,23 @@ const Nav = () => {
       </li>
 
       {state && state.token ? (
-        <Fragment>
-          <li className="nav-item">
-            <span onClick={logout} className="nav-link">
-              Logout
-            </span>
+        <div className="nav-item dropdown">
+          <li className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+            {state.user.email}
           </li>
-        </Fragment>
+          <ul className="dropdown-menu">
+            <li className="nav-item dropdown-item">
+              <Link className="nav-link" to="/account">
+                Account
+              </Link>
+            </li>
+            <li className="nav-item dropdown-item">
+              <Link onClick={logout} className="nav-link">
+                Logout
+              </Link>
+            </li>
+          </ul>
+        </div>
       ) : (
         <Fragment>
           <li className="nav-item">
