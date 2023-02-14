@@ -6,10 +6,24 @@ import { UserContext } from '../context';
 const Home = ({ history }) => {
   const [state, setState] = useContext(UserContext);
   const [prices, setPrices] = useState([]);
+  const [userSubscriptions, setUserSubscriptions] = useState([]);
 
   useEffect(() => {
     fetchPrices();
   }, []);
+
+  useEffect(() => {
+    let result = [];
+    const check = () =>
+      state &&
+      state.user &&
+      state.user.subscriptions &&
+      state.user.subscriptions.map((sub) => {
+        result.push(sub.plan.id);
+      });
+    check();
+    setUserSubscriptions(result);
+  }, [state && state.user]);
 
   const fetchPrices = async () => {
     const { data } = await axios.get('/prices');
@@ -19,6 +33,10 @@ const Home = ({ history }) => {
 
   const handleClick = async (e, price) => {
     e.preventDefault();
+    if (userSubscriptions && userSubscriptions.includes(price.id)) {
+      history.push(`/${price.nickname.toLowerCase()}`);
+      return;
+    }
     // console.log("plan clicked", price.id);
     if (state && state.token) {
       const { data } = await axios.post('/create-subscription', {
@@ -46,6 +64,7 @@ const Home = ({ history }) => {
               key={price.id}
               price={price}
               handleSubscription={handleClick}
+              userSubscriptions={userSubscriptions}
             />
           ))}
       </div>
