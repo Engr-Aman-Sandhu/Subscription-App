@@ -15,7 +15,7 @@ const Login = ({ history }) => {
     // console.log("email and password", email, password);
     try {
       e.preventDefault();
-      const { data } = await axios.post('http://localhost:8000/api/login', {
+      const { data } = await axios.post('/login', {
         email,
         password,
       });
@@ -28,7 +28,7 @@ const Login = ({ history }) => {
         setPassword('');
         setState(data);
         localStorage.setItem('auth', JSON.stringify(data));
-        history.push('/');
+        history.push('/account');
       }
     } catch (err) {
       console.log(err);
